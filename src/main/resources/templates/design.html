@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Pizza shop!</title>
+</head>
+<body>
+<h1>Create your order!</h1>
+<form method="POST" th:object="${design}">
+    <span class="validationError"
+          th:if="${#fields.hasErrors('products')}"
+          th:errors="*{products}">Products Error</span>
+
+    <div class="product-group" id="pizza">
+        <h3>Pizza:</h3>
+        <div th:each="product : ${pizza}">
+            <input name="products" type="checkbox" th:value="${product.productId}"/>
+            <span th:text="${product.name}">PRODUCT</span><br/>
+        </div>
+
+        <div class="product-group" id="pasta">
+            <h3>Pasta:</h3>
+            <div th:each="product : ${pasta}">
+                <input name="products" type="checkbox" th:value="${product.productId}"/>
+                <span th:text="${product.name}">PRODUCT</span><br/>
+            </div>
+        </div>
+
+        <div class="product-group" id="nachos">
+            <h3>Nachos:</h3>
+            <div th:each="product : ${nachos}">
+                <input name="products" type="checkbox" th:value="${product.productId}"/>
+                <span th:text="${product.name}">PRODUCT</span><br/>
+            </div>
+        </div>
+
+        <div class="product-group" id="sauce">
+            <h3>Sauce:</h3>
+            <div th:each="product : ${sauce}">
+                <input name="products" type="checkbox" th:value="${product.productId}"/>
+                <span th:text="${product.name}">PRODUCT</span><br/>
+            </div>
+        </div>
+
+        <div class="product-group" id="drink">
+            <h3>Drink:</h3>
+            <div th:each="product : ${drink}">
+                <input name="products" type="checkbox" th:value="${product.productId}"/>
+                <span th:text="${product.name}">PRODUCT</span><br/>
+            </div>
+        </div>
+    </div>
+
+    <button>Submit your order</button>
+    </div>
+</form>
+
+</body>
+</html>
