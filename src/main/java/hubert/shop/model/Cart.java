@@ -13,9 +13,10 @@ import java.util.UUID;
 @Entity
 public class Cart {
     @Id
-    private UUID orderId;
+    private UUID cartId;
+
     @ManyToMany(targetEntity = Product.class)
     @Size(min=1, message = "You must choose at least 1 product")
-    private List<UUID> products;
+    private List<Product> products;
 
 }

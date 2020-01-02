@@ -1,11 +1,12 @@
 package hubert.shop.Web;
 
 import hubert.shop.data.CartRepository;
-import hubert.shop.data.OrderRepository;
 import hubert.shop.data.ProductRepository;
+import hubert.shop.data.UserRepository;
 import hubert.shop.model.Cart;
 import hubert.shop.model.Order;
 import hubert.shop.model.Product;
+import hubert.shop.model.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,9 +15,8 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.lang.reflect.Array;
+import java.security.Principal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -24,17 +24,20 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("/design")
 @SessionAttributes("order")
-public class DesignProductController {
+@Slf4j
+public class CartController {
 
     private final ProductRepository productRepository;
-
     private CartRepository cartRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public DesignProductController(ProductRepository productRepository,
-                                   CartRepository cartRepository) {
+    public CartController(ProductRepository productRepository,
+                          CartRepository cartRepository,
+                          UserRepository userRepository) {
         this.cartRepository = cartRepository;
         this.productRepository = productRepository;
+        this.userRepository = userRepository;
     }
 
     @ModelAttribute(name = "order")
@@ -48,7 +51,8 @@ public class DesignProductController {
     }
 
     @GetMapping
-    public String showDesignForm(Model model) {
+    public String showDesignForm(Model model, Principal principal) {
+        log.info("   --- Designing taco");
         List<Product> products = new ArrayList<>();
         productRepository.findAll().forEach(i -> products.add(i));
 
@@ -57,17 +61,23 @@ public class DesignProductController {
             model.addAttribute(type.toString().toLowerCase(),
                     filterByType(products, type));
         }
+        String username = principal.getName();
+        User user = userRepository.findByUsername(username);
+        model.addAttribute("user", user);
+
         return "design";
     }
 
     @PostMapping
     public String processDesign(@Valid Cart cart, Errors errors,
                                 @ModelAttribute Order order) {
+        log.info("   --- Saving cart");
+
         if (errors.hasErrors()) {
             return "design";
         }
 
-
+        cart.setCartId(UUID.randomUUID());
         Cart saved = cartRepository.save(cart);
         order.addDesign(saved);
         return "redirect:/orders/current";

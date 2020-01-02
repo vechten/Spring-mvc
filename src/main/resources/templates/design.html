@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Create your order!</h1>
-<form method="POST" th:object="${design}">
+<form th:method="POST" th:object="${design}" th:action="@{/design}" id="cartForm">
     <span class="validationError"
           th:if="${#fields.hasErrors('products')}"
           th:errors="*{products}">Products Error</span>

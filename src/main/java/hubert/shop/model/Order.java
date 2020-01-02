@@ -23,18 +23,8 @@ public class Order implements Serializable {
     @Id
     private UUID orderId;
 
-
-    @NotBlank(message = "Delivery name is required")
-    private String deliveryName;
-
-    @NotBlank(message = "Street is required")
-    private String deliveryStreet;
-
-    @NotBlank(message = "City is required")
-    private String deliveryCity;
-
-    @NotBlank(message = "Zip code is required")
-    private String deliveryZip;
+    @ManyToOne
+    private User user;
 
     @ManyToMany(targetEntity = Cart.class)
     private List<Cart> carts = new ArrayList<>();
