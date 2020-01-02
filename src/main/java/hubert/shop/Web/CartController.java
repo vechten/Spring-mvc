@@ -61,9 +61,6 @@ public class CartController {
             model.addAttribute(type.toString().toLowerCase(),
                     filterByType(products, type));
         }
-        String username = principal.getName();
-        User user = userRepository.findByUsername(username);
-        model.addAttribute("user", user);
 
         return "design";
     }
@@ -74,10 +71,9 @@ public class CartController {
         log.info("   --- Saving cart");
 
         if (errors.hasErrors()) {
+            System.out.println("error");
             return "design";
         }
-
-        cart.setCartId(UUID.randomUUID());
         Cart saved = cartRepository.save(cart);
         order.addDesign(saved);
         return "redirect:/orders/current";

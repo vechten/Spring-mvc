@@ -16,17 +16,18 @@ import java.util.UUID;
 
 @Data
 @Entity
+@Table(name="Cart_Order")
 public class Order implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     @Id
-    private UUID orderId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @ManyToOne
     private User user;
 
-    @ManyToMany(targetEntity = Cart.class)
+    @OneToOne(targetEntity = Cart.class )
     private List<Cart> carts = new ArrayList<>();
 
     public void addDesign(Cart design) {

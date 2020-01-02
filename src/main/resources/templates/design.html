@@ -5,7 +5,11 @@
     <title>Pizza shop!</title>
 </head>
 <body>
-<h1>Create your order!</h1>
+<p>Want to login? Click
+    <a th:href="@{/login}">here</a></p>
+<p>New here? Click
+    <a th:href="@{/register}">here</a> to register.</p>
+<a th:href="@{/login}">here</a> to register.</p>
 <form th:method="POST" th:object="${design}" th:action="@{/design}" id="cartForm">
     <span class="validationError"
           th:if="${#fields.hasErrors('products')}"
@@ -14,14 +18,14 @@
     <div class="product-group" id="pizza">
         <h3>Pizza:</h3>
         <div th:each="product : ${pizza}">
-            <input name="products" type="checkbox" th:value="${product.productId}"/>
+            <input name="products" type="checkbox" th:value="${product.name}"/>
             <span th:text="${product.name}">PRODUCT</span><br/>
         </div>
 
         <div class="product-group" id="pasta">
             <h3>Pasta:</h3>
             <div th:each="product : ${pasta}">
-                <input name="products" type="checkbox" th:value="${product.productId}"/>
+                <input name="products" type="checkbox" th:value="${product.name}"/>
                 <span th:text="${product.name}">PRODUCT</span><br/>
             </div>
         </div>
@@ -29,7 +33,7 @@
         <div class="product-group" id="nachos">
             <h3>Nachos:</h3>
             <div th:each="product : ${nachos}">
-                <input name="products" type="checkbox" th:value="${product.productId}"/>
+                <input name="products" type="checkbox" th:value="${product.name}"/>
                 <span th:text="${product.name}">PRODUCT</span><br/>
             </div>
         </div>
@@ -37,7 +41,7 @@
         <div class="product-group" id="sauce">
             <h3>Sauce:</h3>
             <div th:each="product : ${sauce}">
-                <input name="products" type="checkbox" th:value="${product.productId}"/>
+                <input name="products" type="checkbox" th:value="${product.name}"/>
                 <span th:text="${product.name}">PRODUCT</span><br/>
             </div>
         </div>
@@ -45,7 +49,6 @@
         <div class="product-group" id="drink">
             <h3>Drink:</h3>
             <div th:each="product : ${drink}">
-                <input name="products" type="checkbox" th:value="${product.productId}"/>
                 <span th:text="${product.name}">PRODUCT</span><br/>
             </div>
         </div>

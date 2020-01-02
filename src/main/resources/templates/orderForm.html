@@ -15,10 +15,10 @@
     <h1>Order pizza</h1>
 
 
-    <h3>Your products</h3>
-    <a th:href="@{/design}" id="another">create another cart</a><br/>
+    <h3>Your cart</h3>
+    <a th:href="@{/}" id="another">Cancel</a><br/>
     <ul>
-        <li th:each="cart : ${order.carts}"><span th:text="${cart.cartId}">cart id</span></li>
+        <li th:each="cart : ${order.carts}"><span th:text="${cart.id}">cart id</span></li>
     </ul>
 
     <div th:if="${#fields.hasErrors()}">

@@ -41,7 +41,6 @@ public class OrderController {
         }
 
         order.setUser(user);
-        order.setOrderId(UUID.randomUUID());
         orderRepository.save(order);
         sessionStatus.setComplete();
 

@@ -21,11 +21,11 @@ public class ShopApplication {
         return new CommandLineRunner() {
             @Override
             public void run(String... args) throws Exception {
-                repo.save(new Product(UUID.randomUUID(), "Pizza de la mount", Product.Type.PIZZA, "Italian, food, pizza"));
-                repo.save(new Product(UUID.randomUUID(), "Spaghetti Carbonare", Product.Type.PASTA, "Italian, pasta, food"));
-                repo.save(new Product(UUID.randomUUID(), "Coke", Product.Type.DRINK, "coke, drink, cola"));
-                repo.save(new Product(UUID.randomUUID(), "Nachos", Product.Type.NACHOS, "coke, drink, cola"));
-                repo.save(new Product(UUID.randomUUID(), "Sauce BBQ", Product.Type.SAUCE, "bbq"));
+                repo.save(new Product( "Pizza de la mount", Product.Type.PIZZA, "Italian, food, pizza"));
+                repo.save(new Product( "Spaghetti Carbonare", Product.Type.PASTA, "Italian, pasta, food"));
+                repo.save(new Product( "Coke", Product.Type.DRINK, "coke, drink, cola"));
+                repo.save(new Product( "Nachos", Product.Type.NACHOS, "coke, drink, cola"));
+                repo.save(new Product("Sauce BBQ", Product.Type.SAUCE, "bbq"));
             }
         };
     }

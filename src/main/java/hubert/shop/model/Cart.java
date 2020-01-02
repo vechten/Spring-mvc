@@ -2,10 +2,9 @@ package hubert.shop.model;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,10 +12,10 @@ import java.util.UUID;
 @Entity
 public class Cart {
     @Id
-    private UUID cartId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    @ManyToMany(targetEntity = Product.class)
-    @Size(min=1, message = "You must choose at least 1 product")
-    private List<Product> products;
+    @ManyToMany(targetEntity = Product.class, cascade = CascadeType.PERSIST)
+    private List<Product> products = new ArrayList<>();
 
 }

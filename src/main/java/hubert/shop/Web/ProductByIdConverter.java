@@ -10,7 +10,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Component
-public class ProductByIdConverter implements Converter<UUID, Product> {
+public class ProductByIdConverter implements Converter<String, Product> {
 
     private ProductRepository productRepository;
 
@@ -20,8 +20,8 @@ public class ProductByIdConverter implements Converter<UUID, Product> {
     }
 
     @Override
-    public Product convert(UUID uuid) {
-        Optional<Product> optionalProduct = productRepository.findById(uuid);
+    public Product convert(String id) {
+        Optional<Product> optionalProduct = productRepository.findById(id);
         return optionalProduct.orElse(null);
     }
 }

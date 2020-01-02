@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.List;
 import java.util.UUID;
@@ -17,7 +19,6 @@ import java.util.UUID;
 public class Product {
 
     @Id
-    private final UUID productId;
     private final String name;
     private final Type type;
     private final String keywords;
