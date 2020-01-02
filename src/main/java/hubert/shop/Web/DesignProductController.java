@@ -1,64 +1,81 @@
 package hubert.shop.Web;
 
+import hubert.shop.data.CartRepository;
+import hubert.shop.data.OrderRepository;
+import hubert.shop.data.ProductRepository;
+import hubert.shop.model.Cart;
 import hubert.shop.model.Order;
 import hubert.shop.model.Product;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-@Slf4j
 @Controller
 @RequestMapping("/design")
+@SessionAttributes("order")
 public class DesignProductController {
-    @ModelAttribute
-    public void addProductsToModel(Model model) {
-        List<Product> products = Arrays.asList(
-                new Product(UUID.randomUUID(), "Pizza de la mount", Product.Type.PIZZA, "Italian, food, pizza"),
-                new Product(UUID.randomUUID(), "Spaghetti Carbonare", Product.Type.PASTA, "Italian, pasta, food"),
-                new Product(UUID.randomUUID(), "Coke", Product.Type.DRINK, "coke, drink, cola"),
-                new Product(UUID.randomUUID(), "Nachos", Product.Type.NACHOS, "coke, drink, cola"),
-                new Product(UUID.randomUUID(), "Sauce BBQ", Product.Type.SAUCE, "coke, drink, cola")
-        );
+
+    private final ProductRepository productRepository;
+
+    private CartRepository cartRepository;
+
+    @Autowired
+    public DesignProductController(ProductRepository productRepository,
+                                   CartRepository cartRepository) {
+        this.cartRepository = cartRepository;
+        this.productRepository = productRepository;
+    }
+
+    @ModelAttribute(name = "order")
+    public Order order() {
+        return new Order();
+    }
+
+    @ModelAttribute(name = "design")
+    public Cart design() {
+        return new Cart();
+    }
+
+    @GetMapping
+    public String showDesignForm(Model model) {
+        List<Product> products = new ArrayList<>();
+        productRepository.findAll().forEach(i -> products.add(i));
+
         Product.Type[] types = Product.Type.values();
         for (Product.Type type : types) {
             model.addAttribute(type.toString().toLowerCase(),
                     filterByType(products, type));
         }
-    }
-
-    @GetMapping
-    public String showDesignForm(Model model) {
-        model.addAttribute("design", new Order());
         return "design";
     }
 
     @PostMapping
-    public String processDesign(@Valid @ModelAttribute("design") Order design, Errors errors, Model model) {
+    public String processDesign(@Valid Cart cart, Errors errors,
+                                @ModelAttribute Order order) {
         if (errors.hasErrors()) {
             return "design";
         }
 
 
-        log.info("Processing design: " + design);
-
+        Cart saved = cartRepository.save(cart);
+        order.addDesign(saved);
         return "redirect:/orders/current";
     }
 
     private List<Product> filterByType(
-            List<Product> ingredients, Product.Type type) {
-        return ingredients
+            List<Product> products, Product.Type type) {
+        return products
                 .stream()
                 .filter(x -> x.getType().equals(type))
                 .collect(Collectors.toList());
