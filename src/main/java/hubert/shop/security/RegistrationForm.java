@@ -5,6 +5,7 @@ import lombok.Data;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.validation.constraints.*;
+import java.util.ArrayList;
 
 @Data
 public class RegistrationForm {
@@ -17,6 +18,6 @@ public class RegistrationForm {
 
     public User toUser(PasswordEncoder passwordEncoder) {
         return new User(
-                username, passwordEncoder.encode(password));
+                username, passwordEncoder.encode(password), new ArrayList<>());
     }
 }

@@ -75,7 +75,7 @@ public class CartController {
             return "design";
         }
         Cart saved = cartRepository.save(cart);
-        order.addDesign(saved);
+        order.setCart(cart);
         return "redirect:/orders/current";
     }
 

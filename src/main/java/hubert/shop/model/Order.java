@@ -28,10 +28,7 @@ public class Order implements Serializable {
     private User user;
 
     @OneToOne(targetEntity = Cart.class )
-    private List<Cart> carts = new ArrayList<>();
+    private Cart cart;
 
-    public void addDesign(Cart design) {
-        this.carts.add(design);
-    }
 
 }

@@ -1,6 +1,7 @@
 package hubert.shop.model;
 
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -15,7 +16,16 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToMany(targetEntity = Product.class, cascade = CascadeType.PERSIST)
+    @JoinTable(joinColumns = @JoinColumn(name = "cart"),
+              inverseJoinColumns = @JoinColumn(name = "product"))
+    @ManyToMany(targetEntity = Product.class)
     private List<Product> products = new ArrayList<>();
 
+    @Override
+    public String toString() {
+        return "Your id cart is " +
+                "" + id +
+                " and you have inside " + products.size() +
+                " products";
+    }
 }

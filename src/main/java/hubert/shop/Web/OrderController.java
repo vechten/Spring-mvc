@@ -31,7 +31,10 @@ public class OrderController {
         return "orderForm";
     }
 
-
+    @GetMapping
+    public String allOrders(){
+        return "orders";
+    }
 
     @PostMapping
     public String processOrder(@Valid Order order, Errors errors, SessionStatus sessionStatus,
@@ -44,6 +47,6 @@ public class OrderController {
         orderRepository.save(order);
         sessionStatus.setComplete();
 
-        return "redirect:/";
+        return "redirect:/orders";
     }
 }
