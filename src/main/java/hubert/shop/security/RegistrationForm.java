@@ -18,6 +18,6 @@ public class RegistrationForm {
 
     public User toUser(PasswordEncoder passwordEncoder) {
         return new User(
-                username, passwordEncoder.encode(password), new ArrayList<>());
+                username, passwordEncoder.encode(password));
     }
 }
