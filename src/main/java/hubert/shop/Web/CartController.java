@@ -52,7 +52,6 @@ public class CartController {
 
     @GetMapping
     public String showDesignForm(Model model, Principal principal) {
-        log.info("   --- Designing taco");
         List<Product> products = new ArrayList<>();
         productRepository.findAll().forEach(i -> products.add(i));
 
