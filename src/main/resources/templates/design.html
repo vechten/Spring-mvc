@@ -10,6 +10,9 @@
 <p>New here? Click
     <a th:href="@{/register}">here</a> to register.</p>
 
+<p>Already logged?
+    <a th:href="@{/user_orders}">here</a> Show my orders</p>
+
 <form th:method="POST" th:object="${design}" th:action="@{/design}" id="cartForm">
     <span class="validationError"
           th:if="${#fields.hasErrors('products')}"
@@ -49,6 +52,7 @@
         <div class="product-group" id="drink">
             <h3>Drink:</h3>
             <div th:each="product : ${drink}">
+                <input name="products" type="checkbox" th:value="${product.name}"/>
                 <span th:text="${product.name}">PRODUCT</span><br/>
             </div>
         </div>

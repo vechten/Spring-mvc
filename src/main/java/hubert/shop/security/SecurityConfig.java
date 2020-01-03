@@ -23,7 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers( "/orders/current","/orders", "/orderForm", "/orderForm/**")
+                .antMatchers( "/orders/current","/orders", "/orderForm","/user_orders")
                 .access("hasRole('ROLE_USER')")
                 .antMatchers("/", "/**").access("permitAll")
                 .and()
