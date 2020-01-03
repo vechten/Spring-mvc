@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Pizza shop!</title>
+</head>
+<body>
+<form method="POST" th:action="@{/logout}" id="logoutForm">
+    <input type="submit" value="Logout"/>
+</form>
+<div th:each="order : ${orders}">
+    <span th:text="${order}">PRODUCT</span><br/>
+    <form action="#" th:action="@{'user_orders/order/{id}'(id=${order.id})}" th:method="delete" >
+        <input type="hidden" name="delete" value="delete" />
+        <button type="submit" id="submitButton" >Delete</button>
+    </form>
+</div>
+<a th:href="@{/design}" id="design">Design your order</a>
+
+</body>
+</html>

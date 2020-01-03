@@ -9,7 +9,7 @@
     <a th:href="@{/login}">here</a></p>
 <p>New here? Click
     <a th:href="@{/register}">here</a> to register.</p>
-<a th:href="@{/login}">here</a> to register.</p>
+
 <form th:method="POST" th:object="${design}" th:action="@{/design}" id="cartForm">
     <span class="validationError"
           th:if="${#fields.hasErrors('products')}"

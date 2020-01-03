@@ -11,4 +11,5 @@ import java.util.UUID;
 public interface OrderRepository extends CrudRepository<Order, Long> {
 
     List<Order> findByUser(User user);
+    void deleteById(Long id);
 }
