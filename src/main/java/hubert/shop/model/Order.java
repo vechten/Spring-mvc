@@ -30,5 +30,11 @@ public class Order implements Serializable {
     @OneToOne(targetEntity = Cart.class )
     private Cart cart;
 
-
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", cart=" + cart +
+                '}';
+    }
 }
