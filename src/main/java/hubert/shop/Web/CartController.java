@@ -53,7 +53,7 @@ public class CartController {
     @GetMapping
     public String showDesignForm(Model model, Principal principal) {
         List<Product> products = new ArrayList<>();
-        productRepository.findAll().forEach(i -> products.add(i));
+        productRepository.getAllByActiveTrue().forEach(i -> products.add(i));
 
         Product.Type[] types = Product.Type.values();
         for (Product.Type type : types) {

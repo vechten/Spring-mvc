@@ -20,14 +20,17 @@ public class Product {
     private Type type;
     @NotBlank
     private String keywords;
+    private boolean active;
 
     public Product() {
+        this.active = true;
     }
 
     public Product(@NotBlank String name, @NotBlank Type type, @NotBlank String keywords) {
         this.name = name;
         this.type = type;
         this.keywords = keywords;
+        this.active = true;
     }
 
     public enum Type {
