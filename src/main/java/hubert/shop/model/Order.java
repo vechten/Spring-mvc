@@ -27,7 +27,7 @@ public class Order implements Serializable {
     @ManyToOne
     private User user;
 
-    @OneToOne(targetEntity = Cart.class )
+    @OneToOne(targetEntity = Cart.class, cascade = CascadeType.REMOVE)
     private Cart cart;
 
     @Override

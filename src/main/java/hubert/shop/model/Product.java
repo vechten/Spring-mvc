@@ -33,6 +33,14 @@ public class Product {
         this.active = true;
     }
 
+    @Override
+    public String toString() {
+        return "Product{" +
+                "name='" + name + '\'' +
+                ", type=" + type +
+                '}';
+    }
+
     public enum Type {
         PIZZA, DRINK, PASTA, NACHOS, SAUCE
     }
